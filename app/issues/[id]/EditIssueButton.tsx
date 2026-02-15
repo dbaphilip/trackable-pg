@@ -7,10 +7,10 @@ interface Props {
 export default function EditIssueButton({ issueId }: Props) {
   return (
     <Link
-      className="fw-bold btn btn-primary shadow-primary fs-3"
+      className="align-self-center fw-bold brico btn btn-primary shadow-primary fs-3"
       href={`/issues/${issueId}/edit`}
     >
-      EDIT
+      edit
     </Link>
   );
 }

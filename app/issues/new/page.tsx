@@ -1,10 +1,11 @@
 "use client";
 
 import ErrorMessage from "@/app/components/ErrorMessage";
+import { Issue } from "@/app/generated/prisma/client";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -21,11 +22,12 @@ export default function NewIssuePage() {
     resolver: zodResolver(createIssueSchema),
   });
 
-  const atSubmit = handleSubmit(async (data) => {
+  const onCreate = handleSubmit(async (data) => {
     try {
       setSubmitting(true);
-      await axios.post("/api/issues", data);
-      router.push("/issues");
+      const newIssueResp = await axios.post("/api/issues", data);
+      const newIssue = newIssueResp.data;
+      router.push(`/issues/${newIssue.id}`);
     } catch (e) {
       setError("SORRY, SOMETHING WENT WRONG");
       setSubmitting(false);
@@ -33,27 +35,29 @@ export default function NewIssuePage() {
   });
 
   return (
-    <div className="container">
+    <div className="arch container">
       <div className="mb-4">
-        {!error && <h1>New Issue</h1>}
+        {!error && <h1 className="brico fw-bold">NEW ISSUE</h1>}
         {error && <h1 className="text-danger">{error}</h1>}
       </div>
 
       <div className="row">
-        <div className="col-md-6">
-          <form onSubmit={atSubmit}>
+        <div className="col-md-8">
+          <form onSubmit={onCreate}>
             <div className="mb-3">
               <input
+                placeholder="TITLE"
                 {...register("title")}
-                className="fs-3 shadow-primary form-control"
+                className="brico fs-3 shadow-primary form-control"
               />
               <ErrorMessage>{errors.title?.message}</ErrorMessage>
             </div>
             <div className="mb-4">
               <textarea
+                placeholder="DESCRIPTION"
                 {...register("description")}
                 rows={5}
-                className="fs-3 shadow-primary form-control"
+                className="brico fs-3 shadow-primary form-control"
               />
               <ErrorMessage>{errors.description?.message}</ErrorMessage>
             </div>
@@ -61,9 +65,9 @@ export default function NewIssuePage() {
             <button
               disabled={isSubmitting}
               type="submit"
-              className="shadow-primary fs-3 btn btn-primary"
+              className="fw-bold shadow-primary fs-3 btn btn-primary"
             >
-              Submit
+              SUBMIT
             </button>
           </form>
         </div>

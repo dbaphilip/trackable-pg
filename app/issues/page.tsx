@@ -4,6 +4,9 @@ import delay from "delay";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+export const dynamic = "force-dynamic";
+// export const revalidate = 0
+
 export const metadata: Metadata = {
   title: "View all issues",
   description: "View all issues",
@@ -11,7 +14,7 @@ export const metadata: Metadata = {
 
 export default async function Issues() {
   const issues = await prisma.issue.findMany();
-  await delay(3000);
+  await delay(1000);
 
   return (
     <div className="container">
@@ -30,7 +33,7 @@ export default async function Issues() {
               <th scope="row">{issue.id}</th>
               <td>
                 <Link
-                  className="text-decoration-none"
+                  className="fs-2 text-decoration-none"
                   href={`/issues/${issue.id}`}
                 >
                   {issue.title}
@@ -39,7 +42,9 @@ export default async function Issues() {
               <td>
                 <IssueStatusBadge status={issue.status} />
               </td>
-              <td>{issue.createdAt.toDateString()}</td>
+              <td className="brico fs-5 fw-bold text-secondary">
+                {issue.createdAt.toDateString()}
+              </td>
             </tr>
           ))}
         </tbody>
