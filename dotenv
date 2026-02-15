@@ -1,0 +1,5 @@
+DATABASE_URL="postgresql://pg:demons@localhost:5432/trackable"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="AJ1uE7k6f59LRhk9ZM+whyVbIqHl5k6U+1L/YJxjXxU="
+GOOGLE_CLIENT_ID="581541133832-dda8rj7901v347ur49vh2p1p7li855pd.apps.googleusercontent.com"
+GOOGLE_CLIENT_SECRET=""

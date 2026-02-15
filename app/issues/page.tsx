@@ -4,6 +4,11 @@ import delay from "delay";
 import Link from "next/link";
 import type { Metadata } from "next";
 
+// Time and Date Formatting
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+dayjs.extend(relativeTime);
+
 export const dynamic = "force-dynamic";
 // export const revalidate = 0
 
@@ -43,7 +48,7 @@ export default async function Issues() {
                 <IssueStatusBadge status={issue.status} />
               </td>
               <td className="brico fs-5 fw-bold text-secondary">
-                {issue.createdAt.toDateString()}
+                {dayjs(issue.createdAt).fromNow()}
               </td>
             </tr>
           ))}
