@@ -4,6 +4,10 @@
   border: 1px solid red;
 } */
 
+.avatar {
+  border-radius: 100%;
+}
+
 body {
   padding-bottom: 10rem;
 }

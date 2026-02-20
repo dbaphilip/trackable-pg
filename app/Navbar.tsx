@@ -7,6 +7,7 @@ import { usePathname } from "next/navigation";
 import { FaBugs, FaBugSlash } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { TfiDashboard } from "react-icons/tfi";
+import Avatar from "./components/Avatar";
 
 export default function Navbar() {
   const { status, data: session } = useSession();
@@ -65,12 +66,10 @@ export default function Navbar() {
               className="fs-4 shadow-primary btn me-2"
             >
               <div className="fs-4 d-flex align-items-center text-primary">
-                <span>
-                  <FcGoogle />
+                <span className="me-3 mb-2">
+                  <Avatar imageUrl={session.user!.image!} />
                 </span>
-                <span className="text-danger fw-bold brico ms-2 me-4">
-                  Logout
-                </span>
+                <span className="text-danger fw-bold brico me-4">Logout</span>
               </div>
             </Link>
           )}
