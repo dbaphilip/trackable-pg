@@ -37,7 +37,7 @@ export default function NewIssuePage() {
   return (
     <div className="arch container">
       <div className="mb-4">
-        {!error && <h1 className="brico fw-bold">NEW ISSUE</h1>}
+        {!error && <h1 className="brico fw-bold">new issue</h1>}
         {error && <h1 className="text-danger">{error}</h1>}
       </div>
 

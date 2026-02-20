@@ -1,6 +1,7 @@
 "use client";
 
 import classnames from "classnames";
+import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { FaBugs, FaBugSlash } from "react-icons/fa6";
@@ -8,6 +9,7 @@ import { FcGoogle } from "react-icons/fc";
 import { TfiDashboard } from "react-icons/tfi";
 
 export default function Navbar() {
+  const { status, data: session } = useSession();
   const currentPath = usePathname();
 
   const links = [
@@ -41,18 +43,37 @@ export default function Navbar() {
             </li>
           ))}
         </ul>
+
         <div className="col-md-3 text-end">
-          <Link
-            href="/issues/new"
-            className="fs-4 shadow-primary text-primary btn me-2"
-          >
-            <div className="fs-4 d-flex align-items-center text-primary">
-              <span>
-                <FcGoogle />
-              </span>
-              <span className="fw-bold brico ms-2 me-4">Sign in</span>
-            </div>
-          </Link>
+          {status == "unauthenticated" && (
+            <Link
+              href="/api/auth/signin"
+              className="fs-4 shadow-primary btn me-2"
+            >
+              <div className="fs-4 d-flex align-items-center text-primary">
+                <span>
+                  <FcGoogle />
+                </span>
+                <span className="fw-bold brico ms-2 me-4">Sign in</span>
+              </div>
+            </Link>
+          )}
+
+          {status == "authenticated" && (
+            <Link
+              href="/api/auth/signout"
+              className="fs-4 shadow-primary btn me-2"
+            >
+              <div className="fs-4 d-flex align-items-center text-primary">
+                <span>
+                  <FcGoogle />
+                </span>
+                <span className="text-danger fw-bold brico ms-2 me-4">
+                  Logout
+                </span>
+              </div>
+            </Link>
+          )}
         </div>
       </header>
     </div>

@@ -23,37 +23,41 @@ export default async function Issues() {
 
   return (
     <div className="container">
-      <table className="fs-3 shadow-primary table">
-        <thead>
-          <tr>
-            <th scope="col">#</th>
-            <th scope="col">Issue</th>
-            <th scope="col">Status</th>
-            <th scope="col">Created</th>
-          </tr>
-        </thead>
-        <tbody>
-          {issues.map((issue) => (
-            <tr key={issue.id}>
-              <th scope="row">{issue.id}</th>
-              <td>
-                <Link
-                  className="fs-2 text-decoration-none"
-                  href={`/issues/${issue.id}`}
-                >
-                  {issue.title}
-                </Link>
-              </td>
-              <td>
-                <IssueStatusBadge status={issue.status} />
-              </td>
-              <td className="brico fs-5 fw-bold text-secondary">
-                {dayjs(issue.createdAt).fromNow()}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <div className="row">
+        <div className="col-md-12">
+          <table className="fs-3 table">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Issue</th>
+                <th scope="col">Status</th>
+                <th scope="col">Created</th>
+              </tr>
+            </thead>
+            <tbody>
+              {issues.map((issue) => (
+                <tr key={issue.id}>
+                  <th scope="row">{issue.id}</th>
+                  <td>
+                    <Link
+                      className="text-decoration-none"
+                      href={`/issues/${issue.id}`}
+                    >
+                      {issue.title}
+                    </Link>
+                  </td>
+                  <td>
+                    <IssueStatusBadge status={issue.status} />
+                  </td>
+                  <td className="text-secondary">
+                    {dayjs(issue.createdAt).fromNow()}
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   );
 }

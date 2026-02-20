@@ -8,9 +8,9 @@ const statusMap: Record<
   Status,
   { label: string; color: "success" | "warning" | "danger" }
 > = {
-  OPEN: { label: "OPEN", color: "danger" },
+  OPEN: { label: "Open", color: "danger" },
   WIP: { label: "WIP", color: "warning" },
-  CLOSED: { label: "CLOSED", color: "success" },
+  CLOSED: { label: "Closed", color: "success" },
 };
 
 export default function IssueStatusBadge({ status }: Props) {

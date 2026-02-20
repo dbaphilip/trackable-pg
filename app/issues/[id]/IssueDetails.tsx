@@ -24,7 +24,7 @@ export default function IssueDetails({ issue }: Props) {
             <IssueStatusBadge status={issue.status} />
           </div>
 
-          <span className="brico fw-bold fs-4">
+          <span className="text-secondary brico fw-bold fs-4">
             {issue.createdAt.toDateString()}
           </span>
         </div>
