@@ -5,6 +5,7 @@ import { Issue } from "@/app/generated/prisma/browser";
 import EditIssueButton from "./EditIssueButton";
 import DeleteIssueButton from "./DeleteIssueButton";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
 
 interface Props {
   issue: Issue;
@@ -49,11 +50,11 @@ export default function IssueDetails({ issue }: Props) {
         {/* Delete Error Alert */}
         {error && (
           <div
-            className="mt-5 fs-4 alert alert-danger alert-dismissible fade show"
+            className="d-flex align-items-center mt-5 fs-4 alert alert-danger alert-dismissible fade show"
             role="alert"
           >
-            <strong>Oops!</strong>{" "}
-            <span className="brico fs-4">The issue could not be deleted.</span>
+            <span className="brico fs-2">Please sign in.</span>
+
             <button
               type="button"
               className="btn-close"

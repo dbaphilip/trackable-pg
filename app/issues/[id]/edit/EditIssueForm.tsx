@@ -34,16 +34,16 @@ export default function EditIssueForm({ issue }: Props) {
       await axios.patch(`/api/issues/${issue.id}`, data);
       router.push(`/issues/${issue.id}`);
     } catch (e) {
-      setError("SORRY, SOMETHING WENT WRONG");
+      setError("Please sign in");
       setSubmitting(false);
     }
   });
 
   return (
-    <div className="arch container">
-      <div className="mb-4">
-        {!error && <h1 className="fw-bold">EDIT ISSUE</h1>}
-        {error && <h1 className="text-danger">{error}</h1>}
+    <div className="container">
+      <div className="brico mb-4">
+        {!error && <h1 className="fw-bold">edit issue</h1>}
+        {error && <h1 className="fw-bold text-danger">{error}</h1>}
       </div>
 
       <div className="row">
@@ -62,8 +62,7 @@ export default function EditIssueForm({ issue }: Props) {
               <select
                 defaultValue={issue.status}
                 {...register("status")}
-                className="fs-3 shadow-primary form-select"
-                aria-label="Default select example"
+                className="brico fs-3 shadow-primary form-select"
               >
                 {statuses.map((status) => (
                   <option key={status} value={status}>

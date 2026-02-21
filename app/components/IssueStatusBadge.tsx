@@ -15,7 +15,7 @@ const statusMap: Record<
 
 export default function IssueStatusBadge({ status }: Props) {
   return (
-    <span className={`badge text-bg-${statusMap[status].color}`}>
+    <span className={`brico badge text-bg-${statusMap[status].color}`}>
       {statusMap[status].label}
     </span>
   );

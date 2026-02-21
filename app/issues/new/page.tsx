@@ -29,16 +29,16 @@ export default function NewIssuePage() {
       const newIssue = newIssueResp.data;
       router.push(`/issues/${newIssue.id}`);
     } catch (e) {
-      setError("SORRY, SOMETHING WENT WRONG");
+      setError("Please sign in");
       setSubmitting(false);
     }
   });
 
   return (
-    <div className="arch container">
-      <div className="mb-4">
-        {!error && <h1 className="brico fw-bold">new issue</h1>}
-        {error && <h1 className="text-danger">{error}</h1>}
+    <div className="container">
+      <div className="brico mb-4">
+        {!error && <h1 className="fw-bold">new issue</h1>}
+        {error && <h1 className="fw-bold text-danger">{error}</h1>}
       </div>
 
       <div className="row">

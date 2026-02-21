@@ -8,6 +8,7 @@ import { FaBugs, FaBugSlash } from "react-icons/fa6";
 import { FcGoogle } from "react-icons/fc";
 import { TfiDashboard } from "react-icons/tfi";
 import Avatar from "./components/Avatar";
+import Skeleton from "./components/Skeleton";
 
 export default function Navbar() {
   const { status, data: session } = useSession();
@@ -46,6 +47,8 @@ export default function Navbar() {
         </ul>
 
         <div className="col-md-3 text-end">
+          {status == "loading" && <Skeleton />}
+
           {status == "unauthenticated" && (
             <Link
               href="/api/auth/signin"

@@ -7,6 +7,9 @@ import type { Metadata } from "next";
 // Time and Date Formatting
 import dayjs from "dayjs";
 import relativeTime from "dayjs/plugin/relativeTime";
+import IssuesToolbar from "./IssuesToolbar";
+import { Status } from "../generated/prisma/enums";
+import { Issue } from "../generated/prisma/client";
 dayjs.extend(relativeTime);
 
 export const dynamic = "force-dynamic";
@@ -17,21 +20,55 @@ export const metadata: Metadata = {
   description: "View all issues",
 };
 
-export default async function Issues() {
-  const issues = await prisma.issue.findMany();
+const columns: { label: string; value: keyof Issue }[] = [
+  { label: "Issue", value: "title" },
+  { label: "Status", value: "status" },
+  { label: "Created", value: "createdAt" },
+];
+
+export default async function Issues(context: {
+  searchParams: Promise<{ status: Status; orderBy: keyof Issue }>;
+}) {
+  const { status, orderBy } = await context.searchParams;
+
+  const statuses = Object.values(Status);
+  const validStatus = statuses.includes(status) ? status : undefined;
+
+  const sortBy = columns.map((col) => col.value).includes(orderBy)
+    ? { [orderBy]: "asc" }
+    : undefined;
+
+  const issues = await prisma.issue.findMany({
+    where: { status: validStatus },
+    orderBy: sortBy,
+  });
   await delay(1000);
 
   return (
     <div className="container">
+      <div className="row mt-3 mb-5">
+        <IssuesToolbar />
+      </div>
+
       <div className="row">
         <div className="col-md-12">
           <table className="fs-3 table">
             <thead>
               <tr>
-                <th scope="col">#</th>
-                <th scope="col">Issue</th>
-                <th scope="col">Status</th>
-                <th scope="col">Created</th>
+                <th scope="col"></th>
+                {columns.map((col) => (
+                  <th key={col.label} scope="col">
+                    <Link
+                      href={{
+                        query: { status, orderBy: col.value },
+                      }}
+                      className="text-secondary"
+                    >
+                      {col.label}
+                    </Link>
+                    {col.value == orderBy && "👈"}
+                  </th>
+                ))}
               </tr>
             </thead>
             <tbody>
