@@ -11,27 +11,38 @@ export default async function LatestIssues() {
   });
 
   return (
-    <table className="fs-3 table">
-      <tbody>
-        {issues.map((issue) => (
-          <tr key={issue.id}>
-            <th scope="row">
-              <Avatar imageUrl={issue.user!.image!} />
+    <>
+      <table className="fs-3 table">
+        <thead>
+          <tr>
+            <th className="brico ps-2 pt-4" scope="col">
+              Newest
             </th>
-            <td>
-              <Link
-                className="text-decoration-none"
-                href={`/issues/${issue.id}`}
-              >
-                {issue.title}
-              </Link>
-              <div>
-                <IssueStatusBadge status={issue.status} />
-              </div>
-            </td>
           </tr>
-        ))}
-      </tbody>
-    </table>
+        </thead>
+        <tbody>
+          {issues.map((issue) => (
+            <tr key={issue.id}>
+              <td>
+                <div className="d-flex align-items-center">
+                  <Avatar size={42} imageUrl={issue.user!.image!} />
+                  <div className="ms-3">
+                    <Link
+                      className="text-decoration-none"
+                      href={`/issues/${issue.id}`}
+                    >
+                      {issue.title}
+                    </Link>
+                    <div>
+                      <IssueStatusBadge status={issue.status} />
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </>
   );
 }

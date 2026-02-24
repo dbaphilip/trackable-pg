@@ -12,7 +12,6 @@ export default function Home() {
         <div className="col-md-6"></div>
         <div className="col-md-6">
           <div className="shadow-primary p-3">
-            <h1 className="ms-1 brico fw-bold">Newest</h1>
             <LatestIssues />
           </div>
         </div>
