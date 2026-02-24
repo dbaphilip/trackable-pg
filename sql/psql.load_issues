@@ -1,0 +1,1 @@
+psql -d trackable -U pg -h localhost -p 5433 -f insert_issues.sql
