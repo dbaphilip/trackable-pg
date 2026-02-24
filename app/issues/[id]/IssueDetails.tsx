@@ -14,6 +14,8 @@ interface Props {
 export default function IssueDetails({ issue }: Props) {
   const [error, setError] = useState(false);
 
+  const { data: session } = useSession();
+
   return (
     <>
       <div className="col-md-6">
@@ -39,13 +41,15 @@ export default function IssueDetails({ issue }: Props) {
         />
 
         {/* Issue Actions: Buttons */}
-        <div className="mt-4 d-flex justify-content-between">
-          <EditIssueButton issueId={issue.id} />
-          <DeleteIssueButton
-            issueId={issue.id}
-            onError={(hasError) => setError(hasError)}
-          />
-        </div>
+        {session && (
+          <div className="mt-4 d-flex justify-content-between">
+            <EditIssueButton issueId={issue.id} />
+            <DeleteIssueButton
+              issueId={issue.id}
+              onError={(hasError) => setError(hasError)}
+            />
+          </div>
+        )}
 
         {/* Delete Error Alert */}
         {error && (

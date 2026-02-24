@@ -1,3 +1,5 @@
+TRUNCATE TABLE issues;
+
 INSERT INTO issues (title, description, status, created_at, updated_at, user_id) VALUES
 ('Login page returns 500 error on invalid credentials',
  'Users attempting to log in with incorrect credentials are receiving a 500 Internal Server Error instead of a proper validation message. The issue appears to originate from the authentication service not properly handling null responses from the database query, resulting in an unhandled exception and degraded user experience.',
