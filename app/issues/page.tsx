@@ -10,6 +10,7 @@ import relativeTime from "dayjs/plugin/relativeTime";
 import IssuesToolbar from "./IssuesToolbar";
 import { Status } from "../generated/prisma/enums";
 import { Issue } from "../generated/prisma/client";
+import Avatar from "../components/Avatar";
 dayjs.extend(relativeTime);
 
 export const dynamic = "force-dynamic";
@@ -20,10 +21,10 @@ export const metadata: Metadata = {
   description: "View all issues",
 };
 
-const columns: { label: string; value: keyof Issue }[] = [
+const columns: { label: string; value: keyof Issue; classes?: string }[] = [
   { label: "Issue", value: "title" },
-  { label: "Status", value: "status" },
-  { label: "Created", value: "createdAt" },
+  { label: "Status", value: "status", classes: "d-none d-sm-table-cell" },
+  { label: "Created", value: "createdAt", classes: "d-none d-sm-table-cell" },
 ];
 
 export default async function Issues(context: {
@@ -40,6 +41,7 @@ export default async function Issues(context: {
 
   const issues = await prisma.issue.findMany({
     where: { status: validStatus },
+    include: { user: true },
     orderBy: sortBy,
   });
   await delay(1000);
@@ -57,7 +59,7 @@ export default async function Issues(context: {
               <tr>
                 <th scope="col"></th>
                 {columns.map((col) => (
-                  <th key={col.label} scope="col">
+                  <th className={col.classes} key={col.label} scope="col">
                     <Link
                       href={{
                         query: { status, orderBy: col.value },
@@ -74,7 +76,9 @@ export default async function Issues(context: {
             <tbody>
               {issues.map((issue) => (
                 <tr key={issue.id}>
-                  <th scope="row">{issue.id}</th>
+                  <th scope="row">
+                    <Avatar imageUrl={issue.user!.image!} />
+                  </th>
                   <td>
                     <Link
                       className="text-decoration-none"
@@ -82,12 +86,17 @@ export default async function Issues(context: {
                     >
                       {issue.title}
                     </Link>
+                    <div className="d-md-none">
+                      <IssueStatusBadge status={issue.status} />
+                    </div>
                   </td>
-                  <td>
+                  <td className="d-none d-sm-table-cell">
                     <IssueStatusBadge status={issue.status} />
                   </td>
-                  <td className="text-secondary">
-                    {dayjs(issue.createdAt).fromNow()}
+                  <td className="text-secondary d-none d-sm-table-cell">
+                    {dayjs(issue.createdAt)
+                      .fromNow()
+                      .replace("minutes", "mins")}
                   </td>
                 </tr>
               ))}

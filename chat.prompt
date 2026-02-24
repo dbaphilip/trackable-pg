@@ -1,0 +1,15 @@
+Given the following prisma model, generate one postgres SQL statement to insert 20 records in the issues table. Use real world titles and descriptions for issues. status can be OPEN, WIP, or CLOSED. user_id can be cmm09k0yo0000yhlkn8u71cqn, cmm09nhyv0001yhlki9pdgkdw, or cmm0ba3qe0002yhlk8oh2utnu. Descriptions should be one paragraph long. Provide different values for created_at and updated_at.
+
+model Issue {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  status      Status   @default(OPEN)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+  user        User     @relation(fields: [userId], references: [id])
+  userId      String   @map("user_id")
+
+  @@map("issues")
+}
+

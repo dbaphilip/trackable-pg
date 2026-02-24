@@ -26,9 +26,15 @@ export async function PATCH(
 
   const { title, description, status } = body;
 
+  const user = await prisma.user.findUnique({
+    where: { email: session.user!.email! },
+  });
+
+  if (!user) return NextResponse.json("Invalid user", { status: 404 });
+
   issue = await prisma.issue.update({
     where: { id: issue.id },
-    data: { title, description, status },
+    data: { title, description, status, userId: user.id },
   });
 
   return NextResponse.json(issue);

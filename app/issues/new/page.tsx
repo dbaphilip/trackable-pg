@@ -1,11 +1,10 @@
 "use client";
 
 import ErrorMessage from "@/app/components/ErrorMessage";
-import { Issue } from "@/app/generated/prisma/client";
 import { createIssueSchema } from "@/app/validationSchemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios from "axios";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
