@@ -1,1 +1,1 @@
-PGPASSWORD=pgpass psql -d trackable -U pg -h localhost -p 5433 -f sql/nsert_issues.sql
+PGPASSWORD=pgpass psql -d trackable -U pg -h localhost -p 5433 -f sql/insert_issues.sql
