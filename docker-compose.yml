@@ -5,12 +5,6 @@ services:
     restart: always
     ports:
       - 3000:3000
-    environment:
-      DATABASE_URL: "postgresql://pg:pgpass@trackable-db-1:5432/trackable"
-      NEXTAUTH_URL: "http://localhost:3000"
-      NEXTAUTH_SECRET: ""
-      GOOGLE_CLIENT_ID: ""
-      GOOGLE_CLIENT_SECRET: ""
     command: ./docker-entrypoint.sh
 
   db:
