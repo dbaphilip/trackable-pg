@@ -11,38 +11,38 @@ export default async function LatestIssues() {
   });
 
   return (
-    <>
-      <table className="fs-3 table">
-        <thead>
-          <tr>
-            <th className="brico ps-2 pt-4" scope="col">
-              Newest
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {issues.map((issue) => (
-            <tr key={issue.id}>
-              <td>
-                <div className="d-flex align-items-center">
+    <table className="latest fs-3 shadow-tile table">
+      <thead>
+        <tr>
+          <th className="brico ps-4 pt-4" scope="col">
+            Most recent issues
+          </th>
+        </tr>
+      </thead>
+
+      <tbody>
+        {issues.map((issue) => (
+          <tr key={issue.id}>
+            <td className="ps-4 pt-3">
+              <Link
+                href={`/issues/${issue.id}`}
+                style={{ textDecoration: "none" }}
+              >
+                <div className="d-flex mb-2 align-items-center">
                   <Avatar size={42} imageUrl={issue.user!.image!} />
-                  <div className="ms-3">
-                    <Link
-                      className="text-decoration-none"
-                      href={`/issues/${issue.id}`}
-                    >
-                      {issue.title}
-                    </Link>
-                    <div>
+
+                  <div className="d-flex flex-column align-items-start">
+                    <span className="ms-3">{issue.title}</span>
+                    <span className="ms-4">
                       <IssueStatusBadge status={issue.status} />
-                    </div>
+                    </span>
                   </div>
                 </div>
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </>
+              </Link>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   );
 }

@@ -70,3 +70,8 @@ body {
     3px 1px 0 2px #333,
     0 -1px 0 2px #333;
 }
+
+.latest {
+  margin-bottom: -11px !important;
+  /* padding-bottom: 0 !important; */
+}
